@@ -11,8 +11,17 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://finance-mind-web.vercel.app",
+    origin: [
+      "https://finance-mind-web.vercel.app",
+      "http://localhost:5050",
+      "http://127.0.0.1:5050"
+    ],
+
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   })
 );
 
