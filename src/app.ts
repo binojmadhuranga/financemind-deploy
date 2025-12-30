@@ -11,10 +11,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5050",
+    origin: "https://finance-mind-web.vercel.app",
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(cookieParser());
 

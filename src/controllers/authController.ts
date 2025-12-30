@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { registerUser, loginUser, getUserById  } from "../services/authService";
+import { registerUser, loginUser, getUserById } from "../services/authService";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -20,10 +20,11 @@ export const login = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-       secure: process.env.NODE_ENV === "production", 
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      secure: true,        // REQUIRED on HTTPS
+      sameSite: "none",    // REQUIRED for cross-site cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
 
     res.json({ user });
   } catch (err: any) {
@@ -45,11 +46,11 @@ export const me = async (req: Request, res: Response) => {
 
 
 export const logout = (_req: Request, res: Response) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-  });
+ res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
 
   res.json({ message: "Logged out successfully" });
 };
