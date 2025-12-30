@@ -1,7 +1,12 @@
 import app from "./app";
 import sequelize from "./config/database";
 
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT);
+
+if (!PORT) {
+  throw new Error("PORT is not defined");
+}
+
 
 (async () => {
   try {
